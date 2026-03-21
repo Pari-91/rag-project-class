@@ -3,6 +3,7 @@
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 
 class Settings(BaseSettings):
@@ -16,11 +17,11 @@ class Settings(BaseSettings):
     )
 
     # OpenAI Configuration
-    openai_api_key: str
+    openai_api_key: str = Field(alias="OPENAI_API_KEY")
 
     # Qdrant Cloud Configuration
-    qdrant_url: str
-    qdrant_api_key: str
+    qdrant_url: str = Field(alias="QDRANT_URL")
+    qdrant_api_key: str = Field(alias="QDRANT_API_KEY")
 
     # Collection Settings
     collection_name: str = "rag_documents"
