@@ -19,6 +19,13 @@ from app.api.routes import documents, health, query
 from app.config import get_settings
 from app.utils.logger import get_logger, setup_logging
 
+import os
+
+print("DEBUG ENV:")
+print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
+print("QDRANT_URL:", os.getenv("QDRANT_URL"))
+print("QDRANT_API_KEY:", os.getenv("QDRANT_API_KEY"))
+
 settings = get_settings()
 
 
