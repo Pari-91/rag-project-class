@@ -80,6 +80,13 @@ jobs:
       - name: Deploy to App Runner
         id: deploy-apprunner
         uses: awslabs/amazon-app-runner-deploy@main
+
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+
         with:
           service: ${{ env.APP_RUNNER_SERVICE }}
           image: ${{ needs.build-and-push.outputs.image_uri }}
@@ -89,13 +96,14 @@ jobs:
           memory: 2
           port: 8000
           wait-for-service-stability-seconds: 300
+
           runtime-environment-variables: |
-            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-            QDRANT_URL=${{ secrets.QDRANT_URL }}
-            QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY }}
+            OPENAI_API_KEY=$OPENAI_API_KEY
+            QDRANT_URL=$QDRANT_URL
+            QDRANT_API_KEY=$QDRANT_API_KEY
             LOG_LEVEL=INFO
             LANGSMITH_TRACING=true
-            LANGSMITH_API_KEY=${{ secrets.LANGSMITH_API_KEY }}
+            LANGSMITH_API_KEY=$LANGSMITH_API_KEY
             LANGSMITH_PROJECT=rag-qa-production
             LANGSMITH_ENDPOINT=https://eu.api.smith.langchain.com
 
